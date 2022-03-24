@@ -1,32 +1,8 @@
 const $ = elem => document.querySelector(elem);
 
 const countdown = function(_config) {
-  const tarDate = $(_config.target).getAttribute('data-date').split('-');
-  const day = parseInt(tarDate[0]);
-  const month = parseInt(tarDate[1]);
-  const year = parseInt(tarDate[2]);
-  let tarTime = $(_config.target).getAttribute('data-time');
-  let tarhour, tarmin;
-
-  if (tarTime != null) {
-    tarTime = tarTime.split(':');
-    tarhour = parseInt(tarTime[0]);
-    tarmin = parseInt(tarTime[1]);
-  }
-
-  let months = [31, new Date().getFullYear() % 4 == 0 ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  let dateNow = new Date();
-  let dayNow = dateNow.getDate();
-  let monthNow = dateNow.getMonth() + 1;
-  let yearNow = dateNow.getFullYear();
-  let hourNow = dateNow.getHours();
-  let minNow = dateNow.getMinutes();
-  let count_day = 0, count_hour = 0, count_min = 0;
-  let count_day_isSet = false;
-  let isOver = false;
-
   // Set the date we're counting down to
-  const countDownDate = new Date(year, month-1, day, tarhour, tarmin, 0, 0).getTime();
+  const countDownDate = _config.endDate;
 
   $(_config.target+' .day .word').innerHTML = _config.dayWord;
   $(_config.target+' .hour .word').innerHTML = _config.hourWord;
@@ -55,10 +31,25 @@ const countdown = function(_config) {
       callback(timeLeftInSeconds);
     }
 
-    $(_config.target+' .day .num').innerHTML = addZero(days);
-    $(_config.target+' .hour .num').innerHTML = addZero(hours);
-    $(_config.target+' .min .num').innerHTML = addZero(minutes);
-    $(_config.target+' .sec .num').innerHTML = addZero(seconds);
+    const dayNumberTarget = $(_config.target+' .day .num');
+    if(dayNumberTarget) {
+      dayNumberTarget.innerHTML = addZero(days);
+    }
+
+    const hourNumberTarget = $(_config.target+' .hour .num');
+    if(hourNumberTarget) {
+      hourNumberTarget.innerHTML = addZero(hours);
+    }
+
+    const minuteNumberTarget = $(_config.target+' .min .num');
+    if(minuteNumberTarget) {
+      minuteNumberTarget.innerHTML = addZero(minutes);
+    }
+
+    const secoundsNumberTarget = $(_config.target+' .sec .num');
+    if(secoundsNumberTarget) {
+      secoundsNumberTarget.innerHTML = addZero(seconds);
+    }
   }
 
   updateTime();
