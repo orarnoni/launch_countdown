@@ -100,22 +100,22 @@
 		</div>
 
 		<script>
-			let redirectionTookPlace = false;
+			let magicHappened = false;
+			let countDownTimerTarget = ".countdown";
 
 			const myCountdown = new countdown({
-				target: '.countdown',
+				target: countDownTimerTarget,
+				endDate: Date.parse('2022-04-05 16:00'),
+				//endDate: Date.now() + 7 * 1000,
 				dayWord: 'Days',
 				hourWord: 'Hours',
 				minWord: 'Minutes',
 				secWord: 'Seconds',
 				callback: function(secondsLeft) {
-					if((secondsLeft < 5.0) && !redirectionTookPlace) {
-						$('.countdown').innerHTML = '<iframe width="800px" height="600px" src="https://www.youtube.com/embed/CcNufcSXJMA?start=248&autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="autoplay" allowfullscreen></iframe>';
-						/*
-						location.href = "https://www.youtube.com/embed/CcNufcSXJMA?start=248&autoplay=1&controls=0&playsinline=1"
-						*/
+					if((secondsLeft < 5) && !magicHappened) {
+						$(countDownTimerTarget).innerHTML = '<iframe width="800px" height="600px" src="https://www.youtube.com/embed/CcNufcSXJMA?start=248&autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="autoplay" allowfullscreen></iframe>';
 
-						redirectionTookPlace = true;
+						magicHappened = true;
 					}
 				}
 			});
